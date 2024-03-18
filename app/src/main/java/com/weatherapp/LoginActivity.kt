@@ -1,6 +1,7 @@
 package com.weatherapp
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -95,6 +96,12 @@ fun LoginPage(modifier: Modifier = Modifier) {
                 onClick = {
                     // Toast, mensagem rápida na tela
                     Toast.makeText(activity, "Login OK", Toast.LENGTH_LONG).show()
+                    // dispara um Intent chamando MainActivity
+                    activity?.startActivity(
+                        Intent(activity, MainActivity::class.java).setFlags(
+                            Intent.FLAG_ACTIVITY_SINGLE_TOP
+                        )
+                    )
                 },
                 // Botão habilitado apenas se satisfizer as condições
                 enabled = email.isNotEmpty() && password.isNotEmpty()
