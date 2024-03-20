@@ -1,7 +1,6 @@
 package com.weatherapp
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -13,7 +12,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -34,96 +32,89 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.weatherapp.ui.theme.WeatherAppTheme
 
-class LoginActivity : ComponentActivity() {
+class RegisterActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             WeatherAppTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    LoginPage()
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    RegisterPage()
                 }
             }
         }
     }
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
-// habilita o preview do Android Studio
 @Preview(showBackground = true)
-// informa que a função é uma tela
 @Composable
-fun LoginPage(modifier: Modifier = Modifier) {
-    /*
-        ->rememberSaveable() faz com que o valor da variável persista entre
-        atualizações da UI
-        ->mutableStateOf() faz com que o valor da variável seja visivel
-         para a composição
-     */
+fun RegisterPage(modifier: Modifier = Modifier) {
+    var nome by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
+    var senha by rememberSaveable { mutableStateOf("") }
+    var repetirSenha by rememberSaveable{ mutableStateOf("") }
     val activity = LocalContext.current as? Activity
+
     Column (
         modifier = Modifier.padding(16.dp),
-        // centraliza os elementos vert. e hori.
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Bem-vindo/a!",
+            text = "Registre-se",
             fontSize = 24.sp
         )
-        Spacer(modifier = Modifier.size(24.dp))
+        Spacer(modifier = Modifier.padding(24.dp))
+        OutlinedTextField(
+            value = nome,
+            label = { Text(text = "Digite seu nome") },
+            modifier = Modifier.fillMaxWidth(),
+            onValueChange = { nome = it }
+        )
+        Spacer(modifier = Modifier.padding(24.dp))
         OutlinedTextField(
             value = email,
             label = { Text(text = "Digite seu e-mail") },
-            // faz com que o textField tome toda a largura da tela
             modifier = Modifier.fillMaxWidth(),
             onValueChange = { email = it }
         )
-        Spacer(modifier = Modifier.size(24.dp))
+        Spacer(modifier = Modifier.padding(24.dp))
         OutlinedTextField(
-            value = password,
+            value = senha,
             label = { Text(text = "Digite sua senha") },
             modifier = Modifier.fillMaxWidth(),
-            onValueChange = { password = it },
+            onValueChange = { senha = it },
             visualTransformation = PasswordVisualTransformation()
         )
-        Spacer(modifier = Modifier.size(24.dp))
+        Spacer(modifier = Modifier.padding(24.dp))
+        OutlinedTextField(
+            value = repetirSenha,
+            label = { Text(text = "Repita sua senha") },
+            modifier = Modifier.fillMaxWidth(),
+            onValueChange = { repetirSenha = it },
+            visualTransformation = PasswordVisualTransformation()
+        )
+        Spacer(modifier = Modifier.padding(24.dp))
         Row(modifier = modifier) {
             Button(
                 onClick = {
-                    // Toast, mensagem rápida na tela
-                    Toast.makeText(activity, "Login OK", Toast.LENGTH_LONG).show()
-                    // dispara um Intent chamando MainActivity
-                    activity?.startActivity(
-                        Intent(activity, MainActivity::class.java).setFlags(
-                            Intent.FLAG_ACTIVITY_SINGLE_TOP
-                        )
-                    )
+                    Toast.makeText(activity, "Registro OK", Toast.LENGTH_LONG).show()
+                    activity?.finish()
                 },
-                // Botão habilitado apenas se satisfizer as condições
-                enabled = email.isNotEmpty() && password.isNotEmpty()
-
+                enabled = (nome.isNotEmpty() && email.isNotEmpty() && senha.isNotEmpty() && repetirSenha.isNotEmpty())
+                        && (senha == repetirSenha)
             ) {
-                Text("Login")
+                Text("Registrar")
             }
+
             Button(
-                onClick = { email = ""; password = "" }
+                onClick = { nome = ""; email = ""; senha = ""; repetirSenha = ""  }
             ) {
                 Text("Limpar")
-            }
-            Button(
-                onClick = {
-                    activity?.startActivity(
-                        Intent(activity, RegisterActivity::class.java).setFlags(
-                            Intent.FLAG_ACTIVITY_SINGLE_TOP
-                        )
-                    )
-                }
-            ) {
-                Text("Registre-se")
             }
         }
     }
