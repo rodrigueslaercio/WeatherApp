@@ -2,7 +2,7 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="HomePage">
+      <entry key="ListPage">
         <State />
       </entry>
       <entry key="LoginPage">
@@ -12,6 +12,9 @@
         <State />
       </entry>
       <entry key="MainActivity">
+        <State />
+      </entry>
+      <entry key="MapPage">
         <State />
       </entry>
       <entry key="app">
