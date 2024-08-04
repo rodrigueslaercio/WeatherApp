@@ -1,4 +1,4 @@
-package com.weatherapp
+package com.weatherapp.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -13,18 +13,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.weatherapp.R
 
 @Preview(showBackground = true)
 @Composable
-fun MapPage() {
+fun ListPage() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(colorResource(id = R.color.purple_700))
+            .background(colorResource(id = R.color.purple_200))
             .wrapContentSize(Alignment.Center)
     ) {
         Text(
-            text = "Mapa",
+            text = "Favoritas",
             fontWeight = FontWeight.Bold,
             modifier = Modifier.align(Alignment.CenterHorizontally),
             textAlign = TextAlign.Center,

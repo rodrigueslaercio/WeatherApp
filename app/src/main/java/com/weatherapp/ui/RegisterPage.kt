@@ -1,4 +1,4 @@
-package com.weatherapp
+package com.weatherapp.ui
 
 import android.app.Activity
 import android.widget.Toast
