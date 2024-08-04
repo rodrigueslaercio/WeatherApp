@@ -13,6 +13,11 @@
         android:theme="@style/Theme.WeatherApp"
         tools:targetApi="31">
         <activity
+            android:name=".ListPage"
+            android:exported="false"
+            android:label="@string/title_activity_list_page"
+            android:theme="@style/Theme.WeatherApp" />
+        <activity
             android:name=".LoginPage"
             android:exported="false"
             android:label="@string/title_activity_login_page"

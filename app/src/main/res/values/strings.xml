@@ -4,4 +4,5 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_home_page">HomePage</string>
     <string name="title_activity_login_page">LoginPage</string>
+    <string name="title_activity_list_page">ListPage</string>
 </resources>
