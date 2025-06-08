@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -31,6 +32,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.weatherapp.ui.theme.DataField
+import com.weatherapp.ui.theme.PasswordField
 import com.weatherapp.ui.theme.WeatherAppTheme
 
 class LoginActivity : ComponentActivity() {
@@ -63,20 +66,9 @@ fun LoginPage(modifier: Modifier = Modifier) {
             text = "Bem-vindo/a!",
             fontSize = 24.sp
         )
-        OutlinedTextField(
-            value = email,
-            label = { Text(text = "Digite seu e-mail") },
-            modifier = modifier.fillMaxWidth(fraction = 0.9f),
-            onValueChange = { email = it }
-        )
+        DataField(label = "Digite seu e-mail", value = email, onValueChange = { email = it })
         Spacer(modifier = Modifier.size(24.dp))
-        OutlinedTextField(
-            value = password,
-            label = { Text(text = "Digite sua senha") },
-            modifier = modifier.fillMaxWidth(fraction = 0.9f),
-            onValueChange = { password = it },
-            visualTransformation = PasswordVisualTransformation()
-        )
+        PasswordField(label = "Digite sua senha", value = password, onValueChange = { password = it})
         Row(modifier = modifier) {
             Button(
                 onClick = {

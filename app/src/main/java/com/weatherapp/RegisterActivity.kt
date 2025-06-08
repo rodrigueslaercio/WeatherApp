@@ -31,6 +31,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.weatherapp.ui.theme.DataField
+import com.weatherapp.ui.theme.PasswordField
 import com.weatherapp.ui.theme.WeatherAppTheme
 
 class RegisterActivity : ComponentActivity() {
@@ -65,33 +67,13 @@ fun RegisterPage(modifier: Modifier = Modifier) {
             text = "Registre-se",
             fontSize = 24.sp
         )
-        OutlinedTextField(
-            value = nome,
-            label = { Text(text = "Digite seu nome") },
-            modifier = Modifier.fillMaxWidth(),
-            onValueChange = { nome = it }
-        )
+        DataField(label = "Digite seu nome", value = nome, onValueChange = {nome = it})
         Spacer(modifier = Modifier.size(24.dp))
-        OutlinedTextField(
-            value = email,
-            label = { Text(text = "Digite seu e-mail") },
-            modifier = Modifier.fillMaxWidth(),
-            onValueChange = { email = it }
-        )
+        DataField(label = "Digite seu e-mail", value = email, onValueChange = {email = it})
         Spacer(modifier = Modifier.size(24.dp))
-        OutlinedTextField(
-            value = senha,
-            label = { Text(text = "Digite sua senha") },
-            modifier = Modifier.fillMaxWidth(),
-            onValueChange = { senha = it }
-        )
+        PasswordField(label = "Digite sua senha", value = senha, onValueChange = {senha = it})
         Spacer(modifier = Modifier.size(24.dp))
-        OutlinedTextField(
-            value = repetirSenha,
-            label = { Text(text = "Repita sua senha") },
-            modifier = Modifier.fillMaxWidth(),
-            onValueChange = { repetirSenha = it }
-        )
+        PasswordField(label = "Repita sua senha", value = repetirSenha, onValueChange = {repetirSenha = it})
         Row(modifier = modifier) {
             Button(
                 onClick = {
