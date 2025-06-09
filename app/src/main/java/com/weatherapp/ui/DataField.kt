@@ -1,4 +1,4 @@
-package com.weatherapp.ui.theme
+package com.weatherapp.ui
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.OutlinedTextField
