@@ -29,11 +29,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.lazy.items
 import com.weatherapp.model.City
+import com.weatherapp.model.MainViewModel
 
 @SuppressLint("ContextCastToActivity")
 @Composable
-fun ListPage(modifier: Modifier = Modifier) {
-   val cityList = remember { getCities().toMutableStateList() }
+fun ListPage(modifier: Modifier = Modifier, viewModel: MainViewModel) {
+    val cityList = viewModel.cities
     val activity = LocalContext.current as? Activity
     LazyColumn(
         modifier = modifier
@@ -42,16 +43,14 @@ fun ListPage(modifier: Modifier = Modifier) {
     ) {
         items(cityList, key = { it.name }) { city ->
             CityItem(city = city, onClose = {
-                Toast.makeText(activity, "Fechado!", Toast.LENGTH_LONG).show()
+                viewModel.remove(city)
+                Toast.makeText(activity, "Removido!", Toast.LENGTH_LONG).show()
             }, onClick = {
+
                 Toast.makeText(activity, "Clicado!", Toast.LENGTH_LONG).show()
             })
         }
     }
-}
-
-private fun getCities() = List(20) { i ->
-    City(name = "Cidade $i", weather = "Carregando clima...")
 }
 
 @Composable

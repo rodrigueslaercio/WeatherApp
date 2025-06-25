@@ -17,10 +17,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.weatherapp.model.MainViewModel
 
 @SuppressLint("ContextCastToActivity")
 @Composable
-fun MapPage(modifier: Modifier = Modifier) {
+fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel) {
+    val cityList = viewModel.cities
     val activity = LocalContext.current as? Activity
     Column(
         modifier = Modifier.fillMaxSize().background(Color.Gray).wrapContentSize(Alignment.Center)
