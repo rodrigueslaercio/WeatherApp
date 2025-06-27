@@ -15,8 +15,6 @@ class MainViewModel : ViewModel() {
     fun add(name: String) {
         _cities.add(City(name = name))
     }
-
-
 }
 
 private fun getCities() = List(20) { i ->
