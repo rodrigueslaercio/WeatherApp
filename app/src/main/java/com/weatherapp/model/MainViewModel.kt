@@ -58,6 +58,10 @@ class MainViewModel(private val db: FBDatabase,
         }
     }
 
+    fun update(city: City) {
+        db.update(city.toFBCity())
+    }
+
     override fun onUserLoaded(user: FBUser) {
         _user.value = user.toUser()
     }
@@ -71,9 +75,15 @@ class MainViewModel(private val db: FBDatabase,
     }
 
     override fun onCityUpdated(city: FBCity) {
+        val oldCity = _cities[city.name]
         _cities.remove(city.name)
-        _cities[city.name!!] = city.toCity()
-        if (_city.value?.name == city.name) { _city.value = city.toCity() }
+        _cities[city.name!!] = city.toCity().copy(
+            weather = oldCity?.weather,
+            forecast = oldCity?.forecast
+        )
+        if (_city.value?.name == city.name) {
+            _city.value = _cities[city.name]
+        }
     }
 
     override fun onCityRemoved(city: FBCity) {
