@@ -39,9 +39,11 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.weatherapp.api.WeatherService
 import com.weatherapp.db.fb.FBDatabase
+import com.weatherapp.db.local.LocalDatabase
 import com.weatherapp.model.MainViewModel
 import com.weatherapp.model.MainViewModelFactory
 import com.weatherapp.monitor.ForecastMonitor
+import com.weatherapp.repo.Repository
 import com.weatherapp.ui.CityDialog
 import com.weatherapp.ui.HomePage
 import com.weatherapp.ui.nav.BottomNavBar
@@ -57,10 +59,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val fbDB = remember { FBDatabase() }
+            val user = Firebase.auth.currentUser
+            val uid = user?.uid ?: "deslogado"
+            val localDB = remember { LocalDatabase(this, uid) }
+            val repository = remember { Repository(fbDB, localDB) }
             val weatherService = remember { WeatherService() }
             val monitor = ForecastMonitor(this)
             val viewModel : MainViewModel = viewModel(
-                factory = MainViewModelFactory(fbDB, weatherService, monitor)
+                factory = MainViewModelFactory(repository, weatherService, monitor)
             )
             DisposableEffect(Unit) {
                 val listener = Consumer<Intent> { intent ->
